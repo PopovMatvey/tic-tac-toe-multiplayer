@@ -1,0 +1,27 @@
+{
+  "name": "test_udp_js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node request.js",
+    "request": "nodemon request.js",
+    "response": "nodemon response.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@libdweb/node-dgram": "^0.0.0",
+    "cors": "^2.8.5",
+    "dgram": "^1.0.1",
+    "express": "^4.19.2",
+    "path": "^0.12.7",
+    "socket-udp": "^0.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

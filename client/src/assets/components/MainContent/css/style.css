@@ -1,0 +1,5 @@
+/* Стили основного контента */
+.main-content-container{
+    border: 1px solid #000;
+    padding: 10px;
+}

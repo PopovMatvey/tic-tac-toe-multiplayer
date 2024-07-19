@@ -1,0 +1,12 @@
+/* Стили "Подвала" */
+footer{
+    width: 100%;
+    padding: 20px 0px;
+}
+
+
+footer span{
+    font-family: 'Concrete';
+    display: block;
+    text-align: center;
+}

@@ -1,0 +1,18 @@
+/* Стили компонента "PackageSenderUDP" */
+.package-send-udp-container{
+    /* border: 1px solid #000; */
+}
+
+.package-send-udp-container_form form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.package-send-udp-container_form input{
+    margin: 5px;
+    width: 300px;
+    padding: 5px 15px;
+    border: 1px solid #000;
+}

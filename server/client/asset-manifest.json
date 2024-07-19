@@ -1,0 +1,42 @@
+{
+  "files": {
+    "main.css": "/static/css/main.245b128a.css",
+    "main.js": "/static/js/main.b49de170.js",
+    "static/js/787.c6b640df.chunk.js": "/static/js/787.c6b640df.chunk.js",
+    "static/media/model-of-car-wheel.jpg": "/static/media/model-of-car-wheel.8052ddab44491401a9d0.jpg",
+    "static/media/img2.svg": "/static/media/img2.c4deabb022154aac51dba8ea131acf75.svg",
+    "static/media/img1.svg": "/static/media/img1.9133858683cf1db8a31e0726e6fc848d.svg",
+    "static/media/BerlinType-Bold.otf": "/static/media/BerlinType-Bold.9dab94178b1737b870ba.otf",
+    "static/media/BerlinType-Regular.otf": "/static/media/BerlinType-Regular.1bbba4deb8775ccac9dc.otf",
+    "static/media/framd.otf": "/static/media/framd.953badef5157dd688816.otf",
+    "static/media/arrow-back.png": "/static/media/arrow-back.7bfeaed9a467ec62f687.png",
+    "static/media/arrow-next.png": "/static/media/arrow-next.65143e3128d4ac816914.png",
+    "static/media/Segoe_WP_SemiLight.ttf": "/static/media/Segoe_WP_SemiLight.573a01b18cba68d19b74.ttf",
+    "static/media/znachok-avto-iz-chroma.jpg": "/static/media/znachok-avto-iz-chroma.73950150bdc282578630.jpg",
+    "static/media/header.png": "/static/media/header.a27240ab68efb3201afe.png",
+    "static/media/support.webp": "/static/media/support.56de9ebb99f7a4d091f2.webp",
+    "static/media/business-key.png": "/static/media/business-key.8bfc1994dd6f5231efc1.png",
+    "static/media/logo.png": "/static/media/logo.ee6be14ed4a1dcda063d.png",
+    "static/media/individual.png": "/static/media/individual.b917dcd5ddfa0d02e6b1.png",
+    "static/media/office-building.png": "/static/media/office-building.edd1b766fdbaa4880e96.png",
+    "static/media/Concrete-Regular.otf": "/static/media/Concrete-Regular.fcb1090140aa5427f444.otf",
+    "static/media/mobile-library.png": "/static/media/mobile-library.b626a8fbcf63db26ad0d.png",
+    "static/media/sertificates.svg": "/static/media/sertificates.2c2d0a9df2f8b58f8b80d2332fcddf05.svg",
+    "static/media/hends.svg": "/static/media/hends.d067c785ec8e56024389e3dd74fb1f71.svg",
+    "static/media/time.svg": "/static/media/time.023b55f7024d7376bed2dac0025783a5.svg",
+    "static/media/vk.svg": "/static/media/vk.468956a478210584ea13010446f17d78.svg",
+    "static/media/whatsup.svg": "/static/media/whatsup.0999ded64f662ee2ace3a728e89e2bdf.svg",
+    "static/media/phone.svg": "/static/media/phone.8a085b906cfa1a720ea56103731d2706.svg",
+    "static/media/mail.svg": "/static/media/mail.44e8a3117425362477f5a5b97318bddf.svg",
+    "static/media/youtube.svg": "/static/media/youtube.75f0f643d6e310e83df7ebc101c9a70b.svg",
+    "index.html": "/index.html",
+    "static/media/telegram.svg": "/static/media/telegram.96fac1dc478c0dab86b5155d8e7493c4.svg",
+    "main.245b128a.css.map": "/static/css/main.245b128a.css.map",
+    "main.b49de170.js.map": "/static/js/main.b49de170.js.map",
+    "787.c6b640df.chunk.js.map": "/static/js/787.c6b640df.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.245b128a.css",
+    "static/js/main.b49de170.js"
+  ]
+}
