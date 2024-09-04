@@ -19,7 +19,9 @@
     "dgram": "^1.0.1",
     "express": "^4.19.2",
     "path": "^0.12.7",
-    "socket-udp": "^0.4.5"
+    "socket-udp": "^0.4.5",
+    "socket.io-client": "^4.7.5",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

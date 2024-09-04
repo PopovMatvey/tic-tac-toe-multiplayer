@@ -10,7 +10,7 @@ export function HeaderInformation() {
     return (
         <div className="header-information">
             {/* <img src={logo} className="App-logo" alt="logo" /> */}
-            <h1>Программа проверки технических условий</h1>
+            <h1>Крестики-нолики Мультиплеер</h1>
         </div>
     );
 }

@@ -1,27 +1,10 @@
-<!DOCTYPE html>
-<html>
-<body>
-  <div id="root"></div>
-</body>
-<!-- This setup is not suitable for production. -->
-<!-- Only use it in development! -->
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<script async src="https://ga.jspm.io/npm:es-module-shims@1.7.0/dist/es-module-shims.js"></script>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react?dev",
-    "react-dom/client": "https://esm.sh/react-dom/client?dev"
-  }
-}
-</script>
-<script type="text/babel" data-type="module">
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import "./css/style.css"
 
 import { useState } from 'react';
 
-function Square({ value, onSquareClick }) {
+function Square({ value, onSquareClick }:any) {
   return (
     <button className="square" onClick={onSquareClick}>
       {value}
@@ -29,8 +12,8 @@ function Square({ value, onSquareClick }) {
   );
 }
 
-function Board({ xIsNext, squares, onPlay }) {
-  function handleClick(i) {
+function Board({ xIsNext, squares, onPlay }:any) {
+  function handleClick(i:any) {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -73,19 +56,19 @@ function Board({ xIsNext, squares, onPlay }) {
   );
 }
 
-let App = function Game() {
+export function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
-  function handlePlay(nextSquares) {
+  function handlePlay(nextSquares:any) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
   }
 
-  function jumpTo(nextMove) {
+  function jumpTo(nextMove:any) {
     setCurrentMove(nextMove);
   }
 
@@ -115,7 +98,7 @@ let App = function Game() {
   );
 }
 
-function calculateWinner(squares) {
+function calculateWinner(squares:any) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -134,106 +117,3 @@ function calculateWinner(squares) {
   }
   return null;
 }
-
-
-const root = createRoot(document.getElementById('root'));
-root.render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
-</script>
-<style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: sans-serif;
-  margin: 20px;
-  padding: 0;
-}
-
-h1 {
-  margin-top: 0;
-  font-size: 22px;
-}
-
-h2 {
-  margin-top: 0;
-  font-size: 20px;
-}
-
-h3 {
-  margin-top: 0;
-  font-size: 18px;
-}
-
-h4 {
-  margin-top: 0;
-  font-size: 16px;
-}
-
-h5 {
-  margin-top: 0;
-  font-size: 14px;
-}
-
-h6 {
-  margin-top: 0;
-  font-size: 12px;
-}
-
-code {
-  font-size: 1.2em;
-}
-
-ul {
-  padding-inline-start: 20px;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: sans-serif;
-  margin: 20px;
-  padding: 0;
-}
-
-.square {
-  background: #fff;
-  border: 1px solid #999;
-  float: left;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
-  width: 34px;
-}
-
-.board-row:after {
-  clear: both;
-  content: '';
-  display: table;
-}
-
-.status {
-  margin-bottom: 10px;
-}
-.game {
-  display: flex;
-  flex-direction: row;
-}
-
-.game-info {
-  margin-left: 20px;
-}
-
-</style>
-</html>

@@ -1,0 +1,23 @@
+.square {
+  background-color: #1b2631;
+  color: #f1c40f;
+  border: 1px solid #f1c40f;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.square_winning {
+  background-color: #000;
+}
