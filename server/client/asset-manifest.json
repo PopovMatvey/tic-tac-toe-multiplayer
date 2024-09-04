@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.1561d2e6.css",
+    "main.js": "/static/js/main.11cc9d74.js",
+    "static/js/787.fcf432be.chunk.js": "/static/js/787.fcf432be.chunk.js",
+    "static/media/BerlinType-Bold.otf": "/static/media/BerlinType-Bold.9dab94178b1737b870ba.otf",
+    "static/media/BerlinType-Regular.otf": "/static/media/BerlinType-Regular.1bbba4deb8775ccac9dc.otf",
+    "static/media/framd.otf": "/static/media/framd.953badef5157dd688816.otf",
+    "static/media/Concrete-Regular.otf": "/static/media/Concrete-Regular.fcb1090140aa5427f444.otf",
+    "index.html": "/index.html",
+    "main.1561d2e6.css.map": "/static/css/main.1561d2e6.css.map",
+    "main.11cc9d74.js.map": "/static/js/main.11cc9d74.js.map",
+    "787.fcf432be.chunk.js.map": "/static/js/787.fcf432be.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1561d2e6.css",
+    "static/js/main.11cc9d74.js"
+  ]
+}

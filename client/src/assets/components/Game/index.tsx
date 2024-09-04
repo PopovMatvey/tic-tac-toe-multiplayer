@@ -1,9 +1,11 @@
-import React, { StrictMode } from 'react';
+import React, { StrictMode, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import io from 'socket.io-client';
 import "./css/style.css"
 
 import { useState } from 'react';
+import { request } from '../../hook/request';
+import { useGetRequestScore } from '../../hook/useScore';
 const socket = io('ws://localhost:2000');
 
 function Square({ value, onSquareClick }: any) {
@@ -19,7 +21,7 @@ function Board({ xIsNext, squares, onPlay, chooseType }: any) {
   const [statusX, setStatusX] = useState(0);
   let statusOVarible = 0;
   let statusXVarible = 0;
-
+  const {Score, featchScore} = useGetRequestScore();
   // let statusO:number;
   // let statusX:number;
 
@@ -34,7 +36,7 @@ function Board({ xIsNext, squares, onPlay, chooseType }: any) {
   }
 
 
-  console.log("sdds" ,calculateWinner(squares))
+  // console.log("sdds", calculateWinner(squares))
   const winner = calculateWinner(squares);
   let status;
 
@@ -48,21 +50,30 @@ function Board({ xIsNext, squares, onPlay, chooseType }: any) {
       statusOVarible++;
     }
 
-    console.log(winner === "X")
-    console.log(winner === "O")
+    // console.log(winner === "X")
+    // console.log(winner === "O")
 
     if ((statusOVarible === 3) || (statusXVarible === 3)) {
       status = 'Winner: ' + winner;
     }
 
-    // for (let i = 0; i < squares.length; i++) {
-    //   squares[i] = "";
-    // }
+    const scoreObj: any = {
+      "scoreX": statusXVarible,
+      "scoreO": statusOVarible,
+    };
+
+    request('http://localhost:2002/api/check_tech_conditions/send_udp_package',
+      "POST",
+      scoreObj
+    )
 
   } else {
     status = 'Next player: ' + (xIsNext ? 'X' : 'O');
   }
 
+  useEffect(()=>{
+    console.log(statusXVarible);
+  },[statusXVarible,statusO])
 
   return (
     <>
@@ -70,7 +81,7 @@ function Board({ xIsNext, squares, onPlay, chooseType }: any) {
       <div className="status_zeros">Win X:{statusXVarible}</div>
       <div className="status">{status}</div>
       <div className="score-container">
-        
+
         Score:
         X: {statusO}
         O: {statusX}
@@ -100,7 +111,6 @@ export function Game() {
   const xIsNext = currentMove % 2 === 0;
   let currentSquares = history[currentMove];
   const [chooseType, setChooseType] = useState("");
-  // let [currentSquares, setCurrentSquares]= history[currentMove];
 
   function handlePlay(nextSquares: any) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
@@ -109,9 +119,9 @@ export function Game() {
     socket.emit('message', nextSquares);
   }
 
-  function jumpTo(nextMove: any) {
-    setCurrentMove(nextMove);
-  }
+  // function jumpTo(nextMove: any) {
+  //   setCurrentMove(nextMove);
+  // }
 
   socket.on('message', (historyWS: any) => {
     const nextHistory = [...history.slice(0, currentMove + 1), historyWS];
@@ -174,6 +184,7 @@ function calculateWinner(squares: any) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      console.log(squares[a]);
       return squares[a];
     }
   }

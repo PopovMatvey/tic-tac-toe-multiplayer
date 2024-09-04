@@ -1,25 +1,64 @@
 'use strict'
 
 /*Libs*/
-// const cors = require('cors')                                // Позволяет использовать api requests/response
-// const express = require('express');                         // Для работы с API
-// const path = require('path');                               // Для определения статической директории
-// const { io } = require("socket.io-client");
-// const app = express();
+const cors = require('cors')                                // Позволяет использовать api requests/response
+const express = require('express');                         // Для работы с API
+const path = require('path');                               // Для определения статической директории
+const sqlite3 = require('sqlite3').verbose();               // lib data base sqlite
+const app = express();
 
-// app.use(express.json());
-// app.use(cors());
+app.use(express.json());
+app.use(cors());
 
 
 /*Переменные*/
 const PORT_APP = 2001;                                              // Порт приложения
 const urlRequest = '/api/tic-tac-toe';                    // Исходный url приложения
 
+let scoreObj = {
+    scoreX: 0,
+    scoreO: 0,
+}
+
+/*SQL*/
+const dataBaseObject = new sqlite3.Database('./DataBase.db', sqlite3.OPEN_READWRITE, (err) => {
+    if (err) return console.log(err);
+});
+
+// Таблица "Пользователи"
+let sqlCreateUser = `
+CREATE TABLE sex (
+    id_user INTEGER PRIMARY KEY,
+    name_user VARCHAR,
+    password_user VARCHAR,
+  )`;
+
+dataBaseObject.run(sqlCreateUser);
+
+let sqlInserteUser = `
+INSERT INTO sex (
+    id_user,
+    name_user,
+    password_user
+    )  VALUES(?,?,?)`;
+
+
+dataBaseObject.run(
+    sqlInserteUser,
+    [
+        0,
+        "User62",
+        "12345678"
+    ],
+    (error) => { if (error) { console.log(error); } }
+);
+
 /*Запросы HTTP*/
 //GET
-// app.get(urlRequest, (_request, response) => {
-//     response.status(200).json(successGetRequestMessage);
-// });
+app.get(`${urlRequest}/score`, (_request, response) => {
+    // console.log(scoreObj)
+    response.status(200).json(scoreObj);
+});
 
 // app.get(`${urlRequest}/ip_address`, (_request, response) => {
 //     response.status(200).json(udpSoketObject.getIPAddr());
@@ -29,12 +68,13 @@ const urlRequest = '/api/tic-tac-toe';                    // Исходный ur
 //     response.status(200).json(timelyUDPBuffer);
 // });
 
-// // POST
-// app.post(`${urlRequest}/send_udp_package`, (request, response) => {
-//     udpSoketObject.runExchangeUDP(request.body.sendPackage);
-//     timelyUDPBuffer.push(udpSoketObject.lastExchangeData);
-//     response.status(201).json(successPostRequestMessage);
-// });
+// POST
+app.post(`${urlRequest}/score`, (request, response) => {
+    scoreObj.scoreO = request.body.scoreO;
+    scoreObj.scoreX = request.body.scoreX;
+
+    response.status(201).json(scoreObj);
+});
 
 // app.post(`${urlRequest}/ip_address`, (request, response) => {
 //     udpSoketObject.setIPAddr(request.body.ip_address);
