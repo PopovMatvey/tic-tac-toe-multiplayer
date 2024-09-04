@@ -20,38 +20,52 @@ let scoreObj = {
     scoreO: 0,
 }
 
-/*SQL*/
-const dataBaseObject = new sqlite3.Database('./DataBase.db', sqlite3.OPEN_READWRITE, (err) => {
-    if (err) return console.log(err);
-});
+// /*SQL*/
+// const dataBaseObject = new sqlite3.Database('./DataBase.db', sqlite3.OPEN_READWRITE, (err) => {
+//     if (err) return console.log(err);
+// });
 
-// Таблица "Пользователи"
-let sqlCreateUser = `
-CREATE TABLE sex (
-    id_user INTEGER PRIMARY KEY,
-    name_user VARCHAR,
-    password_user VARCHAR,
-  )`;
+// // Таблица "Пользователи"
+// let sqlCreateUser = `
+// CREATE TABLE user (
+//     id_user INTEGER PRIMARY KEY,
+//     name_user VARCHAR,
+//     password_user VARCHAR,
+//   )`;
 
-dataBaseObject.run(sqlCreateUser);
+// dataBaseObject.run(sqlCreateUser);
 
-let sqlInserteUser = `
-INSERT INTO sex (
-    id_user,
-    name_user,
-    password_user
-    )  VALUES(?,?,?)`;
+// let sqlInserteUser = `
+// INSERT INTO user (
+//     id_user,
+//     name_user,
+//     password_user
+//     )  VALUES(?,?,?)`;
 
 
-dataBaseObject.run(
-    sqlInserteUser,
-    [
-        0,
-        "User62",
-        "12345678"
-    ],
-    (error) => { if (error) { console.log(error); } }
-);
+// dataBaseObject.run(
+//     sqlInserteUser,
+//     [
+//         0,
+//         "User62",
+//         "12345678"
+//     ],
+//     (error) => { if (error) { console.log(error); } }
+// );
+
+// let sqlSelectUsers = 'SELECT * FROM user';
+// let responseArrayUsers = [];
+
+
+// dataBaseObject.all(sqlSelectUsers, [], (error, rows) => {
+//     if (error) {
+//         return console.log(err.message);
+//     }
+
+//     rows.forEach((row) => {
+//         responseArrayUsers.push(row);
+//     })
+// })
 
 /*Запросы HTTP*/
 //GET
