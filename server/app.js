@@ -1,18 +1,18 @@
 'use strict'
 
 /*Libs*/
-const cors = require('cors')                                // Позволяет использовать api requests/response
-const express = require('express');                         // Для работы с API
-const path = require('path');                               // Для определения статической директории
-const { io } = require("socket.io-client");
-const app = express();
+// const cors = require('cors')                                // Позволяет использовать api requests/response
+// const express = require('express');                         // Для работы с API
+// const path = require('path');                               // Для определения статической директории
+// const { io } = require("socket.io-client");
+// const app = express();
 
-app.use(express.json());
-app.use(cors());
+// app.use(express.json());
+// app.use(cors());
 
 
 /*Переменные*/
-const PORT_APP = 2002;                                              // Порт приложения
+const PORT_APP = 2001;                                              // Порт приложения
 const urlRequest = '/api/tic-tac-toe';                    // Исходный url приложения
 
 /*Запросы HTTP*/
@@ -42,8 +42,6 @@ const urlRequest = '/api/tic-tac-toe';                    // Исходный ur
 // });
 
 
-const socket = io("http://localhost:2002");
-
 /*Директория*/
 // Инициализация статики
 app.use(express.static(path.resolve(__dirname, 'client')));
@@ -62,13 +60,35 @@ app.listen(PORT_APP, () => console.log(`Сервер был запущен на 
 //     console.log(socket.id); // x8WIv7-mJelg7on_ALbx
 // });
 
-// client-side
-socket.on("connect", () => {
-    console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-});
+// const WebSocket = require('ws');
 
-socket.on("disconnect", () => {
-    console.log(socket.id); // undefined
-});
+// const wss = new WebSocket.Server({ port: 3000 });
 
+// wss.on('connection', function connection(ws) {
+//   console.log('Соединение установлено');
 
+//   ws.on('message', function incoming(message) {
+//     console.log(`Получено сообщение: ${message}`);
+//   });
+
+//   ws.on('close', function close() {
+//     console.log('Соединение закрыто');
+//   });
+// });
+
+// const http = require('http').createServer();
+
+// const io = require('socket.io')(http, {
+//     cors: { origin: "*" }
+// });
+
+// io.on('connection', (socket) => {
+//     console.log('a user connected');
+
+//     socket.on('message', (message) =>     {
+//         console.log(message);
+//         io.emit("message",message)
+//     });
+// });
+
+// http.listen(2000, () => console.log('listening on http://localhost:2000') );

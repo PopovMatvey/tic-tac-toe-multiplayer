@@ -1,10 +1,12 @@
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import io from 'socket.io-client';
 import "./css/style.css"
 
 import { useState } from 'react';
+const socket = io('ws://localhost:2000');
 
-function Square({ value, onSquareClick }:any) {
+function Square({ value, onSquareClick }: any) {
   return (
     <button className="square" onClick={onSquareClick}>
       {value}
@@ -12,31 +14,67 @@ function Square({ value, onSquareClick }:any) {
   );
 }
 
-function Board({ xIsNext, squares, onPlay }:any) {
-  function handleClick(i:any) {
+function Board({ xIsNext, squares, onPlay, chooseType }: any) {
+  const [statusO, setStatusO] = useState(0);
+  const [statusX, setStatusX] = useState(0);
+  let statusOVarible = 0;
+  let statusXVarible = 0;
+
+  // let statusO:number;
+  // let statusX:number;
+
+  function handleClick(i: any) {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
     const nextSquares = squares.slice();
-    if (xIsNext) {
-      nextSquares[i] = 'X';
-    } else {
-      nextSquares[i] = 'O';
-    }
+    nextSquares[i] = chooseType;
+
     onPlay(nextSquares);
   }
 
+
+  console.log("sdds" ,calculateWinner(squares))
   const winner = calculateWinner(squares);
   let status;
+
+
   if (winner) {
-    status = 'Winner: ' + winner;
+    if (winner === "X") {
+      statusXVarible++;
+    }
+
+    if (winner === "O") {
+      statusOVarible++;
+    }
+
+    console.log(winner === "X")
+    console.log(winner === "O")
+
+    if ((statusOVarible === 3) || (statusXVarible === 3)) {
+      status = 'Winner: ' + winner;
+    }
+
+    // for (let i = 0; i < squares.length; i++) {
+    //   squares[i] = "";
+    // }
+
   } else {
     status = 'Next player: ' + (xIsNext ? 'X' : 'O');
   }
 
+
   return (
     <>
+      <div className="status_zeros">Win O:{statusOVarible}</div>
+      <div className="status_zeros">Win X:{statusXVarible}</div>
       <div className="status">{status}</div>
+      <div className="score-container">
+        
+        Score:
+        X: {statusO}
+        O: {statusX}
+      </div>
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
@@ -60,45 +98,68 @@ export function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
-  const currentSquares = history[currentMove];
+  let currentSquares = history[currentMove];
+  const [chooseType, setChooseType] = useState("");
+  // let [currentSquares, setCurrentSquares]= history[currentMove];
 
-  function handlePlay(nextSquares:any) {
+  function handlePlay(nextSquares: any) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
+    socket.emit('message', nextSquares);
   }
 
-  function jumpTo(nextMove:any) {
+  function jumpTo(nextMove: any) {
     setCurrentMove(nextMove);
   }
 
-  const moves = history.map((squares, move) => {
-    let description;
-    if (move > 0) {
-      description = 'Go to move #' + move;
-    } else {
-      description = 'Go to game start';
-    }
-    return (
-      <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
-      </li>
-    );
+  socket.on('message', (historyWS: any) => {
+    const nextHistory = [...history.slice(0, currentMove + 1), historyWS];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
   });
+
+  // const moves = history.map((squares, move) => {
+  //   let description;
+  //   if (move > 0) {
+  //     description = 'Go to move #' + move;
+  //   } else {
+  //     description = 'Go to game start';
+  //   }
+  //   return (
+  //     <li key={move}>
+  //       <button onClick={() => jumpTo(move)}>{description}</button>
+  //     </li>
+  //   );
+  // });
+
+  /**
+   * 
+   * @param _event 
+   */
+  const handlerOnCkickChooseTypeCross = (_event: any) => {
+    setChooseType("X");
+  }
+
+  const handlerOnCkickChooseTypeZero = (_event: any) => {
+    setChooseType("O");
+  }
 
   return (
     <div className="game">
       <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} chooseType={chooseType} />
       </div>
-      <div className="game-info">
-        <ol>{moves}</ol>
+      <div className="choose-type">
+        <span>Сторона {chooseType}</span>
+        <button onClick={handlerOnCkickChooseTypeCross}>Выбрать Х</button>
+        <button onClick={handlerOnCkickChooseTypeZero}>Выбрать О</button>
       </div>
     </div>
   );
 }
 
-function calculateWinner(squares:any) {
+function calculateWinner(squares: any) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -109,11 +170,13 @@ function calculateWinner(squares:any) {
     [0, 4, 8],
     [2, 4, 6],
   ];
+
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
     }
   }
+
   return null;
 }

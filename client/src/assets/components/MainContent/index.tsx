@@ -5,6 +5,7 @@ import { PackageSenderUDP } from "../PackageSenderUDP";
 import { Authorization } from "../Authorization";
 import { Login } from "../Login";
 import { Game } from "../Game";
+import { WS } from "../WS";
 // import { Slider } from '../Slider';
 
 export function MainContent() {
@@ -16,6 +17,7 @@ export function MainContent() {
                     <Route path={"/"} element={<Game/>}></Route>
                     <Route path={"/auth"} element={<Authorization/>}></Route>
                     <Route path={"/login"} element={<Login/>}></Route>
+                    <Route path={"/ws"} element={<WS/>}></Route>
 
 
                     {

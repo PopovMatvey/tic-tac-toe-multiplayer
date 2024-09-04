@@ -1,1 +1,0 @@
-export { default } from './have-empty-cell'

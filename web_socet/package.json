@@ -6,8 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node request.js",
-    "request": "nodemon request.js",
+    "start": "node app.js",
     "response": "nodemon response.js",
     "dev": "nodemon app.js"
   },
