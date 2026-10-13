@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  nameKey   String   @unique
+  wins      Int      @default(0)
+  createdAt DateTime @default(now())
+  matchesAsX Match[] @relation("PlayerX")
+  matchesAsO Match[] @relation("PlayerO")
+}
+
+model Match {
+  id          String   @id @default(uuid())
+  playerXId   String
+  playerOId   String?
+  playerX     User     @relation("PlayerX", fields: [playerXId], references: [id])
+  playerO     User?    @relation("PlayerO", fields: [playerOId], references: [id])
+  status      String
+  winsX       Int      @default(0)
+  winsO       Int      @default(0)
+  winnerId    String?
+  boardSize   Int
+  lastOutcome String?
+  createdAt   DateTime @default(now())
+  games       Game[]
+
+  @@index([playerXId])
+  @@index([playerOId])
+  @@index([status, createdAt])
+}
+
+model Game {
+  id        String   @id @default(uuid())
+  matchId   String
+  match     Match    @relation(fields: [matchId], references: [id])
+  index     Int
+  status    String
+  board     Json
+  nextMark  String
+  createdAt DateTime @default(now())
+  moves     Move[]
+
+  @@unique([matchId, index])
+}
+
+model Move {
+  id     String @id @default(uuid())
+  gameId String
+  game   Game   @relation(fields: [gameId], references: [id])
+  index  Int
+  cell   Int
+  mark   String
+
+  @@unique([gameId, index])
+}
